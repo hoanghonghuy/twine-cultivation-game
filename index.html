@@ -104,11 +104,127 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<tw-storydata name="AgainstTheHeavens" startnode="1" creator="Twine" creator-version="2.10.0" format="SugarCube" format-version="2.37.3" ifid="2A1F614D-3B4C-4BF4-A703-5CBC7F200217" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+	<tw-storydata name="AgainstTheHeavens" startnode="1" creator="Twine" creator-version="2.10.0" format="SugarCube" format-version="2.37.3" ifid="2A1F614D-3B4C-4BF4-A703-5CBC7F200217" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* --- NHẬP KHẨU FONT CHỮ --- */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Noto+Sans:wght@400;700&display=swap');
 
-body, tw-story {
+/* --- TỔNG THỂ & HÌNH NỀN --- */
+body, html {
+    /* Sử dụng một gradient tinh tế thay vì màu phẳng, tạo chiều sâu */
+    background: #10141c; /* Màu nền dự phòng */
+    background-image: linear-gradient(135deg, #10141c 0%, #080a10 100%);
+    color: #cdd6f4; /* Màu chữ trắng ngà, dịu mắt hơn */
+}
+
+/* --- KHU VỰC TRUYỆN CHÍNH --- */
+#story {
+    font-family: 'Lora', serif;
+    font-size: 1.2em; /* Tăng nhẹ kích thước chữ cho dễ đọc */
+    line-height: 1.85;
+}
+
+#passages {
+    background-color: transparent; /* Bỏ nền cũ */
+    padding: 1.5em;
+    border: none; /* Bỏ viền cũ */
+}
+
+.passage {
+    /* Hiệu ứng mờ dần khi chuyển cảnh */
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* --- THANH GIAO DIỆN BÊN TRÁI (UI-BAR) --- */
+#ui-bar {
     font-family: 'Noto Sans', sans-serif;
-    font-size: 1.1em; /* Tăng kích thước chữ lên một chút cho dễ đọc */
+    background-color: rgba(12, 14, 22, 0.8); /* Nền xanh đen đậm hơn và hơi trong suốt */
+    backdrop-filter: blur(5px); /* Hiệu ứng "kính mờ" hiện đại */
+    border-right: 1px solid #313244;
+}
+
+#story-title {
+    color: #f9e2af; /* Màu vàng kim nhạt */
+    text-shadow: 0 0 5px rgba(249, 226, 175, 0.5); /* Thêm hiệu ứng phát sáng nhẹ */
+}
+
+#menu li a:hover {
+    background-color: rgba(249, 226, 175, 0.1);
+    border-color: #f9e2af;
+    color: #f9e2af;
+}
+
+/* --- CÁC LỰA CHỌN --- */
+.passage a.link-internal {
+    display: inline-block; /* Chuyển thành khối để có thể tạo kiểu */
+    font-family: 'Noto Sans', sans-serif; /* Dùng font UI cho lựa chọn */
+    font-weight: normal;
+    color: #cdd6f4;
+    background-color: rgba(49, 50, 68, 0.5); /* Nền màu xám xanh trong suốt */
+    border: 1px solid #45475a;
+    border-radius: 20px; /* Bo tròn các lựa chọn! */
+    padding: 8px 18px;
+    margin: 8px auto;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.passage a.link-internal:hover {
+    color: #1e1e2e; /* Chữ màu tối khi hover */
+    background-color: #f9e2af; /* Nền màu vàng kim khi hover */
+    border-color: #f9e2af;
+    transform: translateY(-2px); /* Hiệu ứng nhấc lên một chút */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* --- CÁC YẾU TỐ KHÁC --- */
+hr {
+    border-top: 1px solid #45475a;
+    margin: 2.5em 1em;
+}
+
+button {
+    background-color: #313244;
+    border: 1px solid #585b70;
+    color: #cdd6f4;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #f9e2af;
+    border-color: #f9e2af;
+    color: #1e1e2e;
+}
+
+/* --- RESPONSIVE CHO ĐIỆN THOẠI --- */
+@media screen and (max-width: 768px) {
+    /* Tự động giấu thanh UI-bar trên điện thoại */
+    #ui-bar.stowed~#story {
+        margin-left: 3.5em;
+    }
+
+    #ui-bar:not(.stowed) {
+        width: 100%;
+    }
+
+    /* ĐIỀU CHỈNH LẠI KHU VỰC TRUYỆN CHÍNH */
+    #story {
+        /* Thêm lề (margin) cho màn hình nhỏ */
+        margin: 1.5em !important; /* Thay vì margin: 0 */
+        font-size: 1.1em;
+    }
+
+    #passages {
+        padding: 1em; /* Giảm padding một chút để cân đối với margin mới */
+    }
+
+    /* Các lựa chọn trên điện thoại sẽ chiếm toàn bộ chiều rộng cho dễ bấm */
+    .passage a.link-internal {
+        display: block;
+        width: auto; /* Để nó tự co giãn theo padding */
+        margin: 12px 0; /* Căn giữa và bỏ margin trái/phải */
+        text-align: center;
+    }
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Start" tags="" position="700,175" size="100,100">Tông môn Hằng Nhạc, một ngày u ám. Mưa bụi giăng khắp lối.
 
 Bạn đứng lặng trong sân luyện võ, nắm chặt hai bàn tay gầy guộc. Hôm nay là ngày khảo hạch đệ tử ngoại môn. Với tư chất hạ đẳng của mình, đây không khác gì một ngày sỉ nhục được báo trước.
@@ -749,6 +865,7 @@ Bạn tập trung tâm trí, tiến vào không gian sương mù bên trong hạ
 [[ [Mạo hiểm] Kinh mạch đã nát, không thể tu luyện. Mạo hiểm dùng linh dịch vun trồng linh thảo, hy vọng bán lấy tiền mua đan dược chữa thương.-&gt;gambleOnHerb]]
 [[ [Nghiên cứu] Bỏ qua thương thế, tập trung toàn bộ tinh thần nghiên cứu Thiên Nghịch Châu, hy vọng tìm ra một bí mật khác.-&gt;studyTheBead]]</tw-passagedata><tw-passagedata pid="43" name="actionHub" tags="" position="1150,300" size="100,100">/* Passage trung tâm, điều khiển hành động của người chơi mỗi thời khắc */
 
+&lt;&lt;nobr&gt;&gt;
 &lt;&lt;if $actionPoints lte 0&gt;&gt;
     &lt;&lt;goto &quot;backInTheRoom_Evening&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
@@ -779,7 +896,7 @@ Bạn tập trung tâm trí, tiến vào không gian sương mù bên trong hạ
 &lt;&lt;if $day gte 15 and $sectStatus is &quot;Trúc Cơ Tu Sĩ&quot; and not $flag_competition_announced&gt;&gt;
     &lt;&lt;goto &quot;competitionAnnouncement&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-
+&lt;&lt;/nobr&gt;&gt;
 
 /* == GIAO DIỆN HIỂN THỊ THỜI GIAN VÀ TRẠNG THÁI == */
 **Ngày thứ &lt;&lt;=$day&gt;&gt; - Buổi &lt;&lt;=$timeOfDay&gt;&gt;**
